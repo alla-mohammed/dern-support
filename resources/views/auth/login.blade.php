@@ -1,10 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+    <link href="{{ asset('bootstrap.min.css') }}" rel="stylesheet">
+</head>
+<body >
 <x-guest-layout>
-    <x-authentication-card>
+ <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
         </x-slot>
 
-        <x-validation-errors class="mb-4" />
+        <x-validation-errors class="mb-4 " />
+        
+
 
         @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">
@@ -13,16 +24,21 @@
         @endif
 
         <form method="POST" action="{{ route('login') }}">
+            <h1 class="text-center">Welcome.</h1>
+            <p class="h5 text-center mt-2">Login to your account</p>
+            <div class="d-flex justify-content-center align-items-center">
+                <img src="{{ asset('logo.svg') }}" width="70px" alt="dern support logo">
+            </div>
             @csrf
 
             <div>
                 <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-input id="email" class="block mt-1 w-full form-control" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             </div>
 
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-input id="password" class="block mt-1 w-full form-control" type="password" name="password" required autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">
@@ -46,3 +62,4 @@
         </form>
     </x-authentication-card>
 </x-guest-layout>
+</body>

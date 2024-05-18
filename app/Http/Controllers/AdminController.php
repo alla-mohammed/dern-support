@@ -3,26 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        if(Auth::id()){
-            $type= Auth()->user()->type;
-            if($type=='user'){
-                return view('dashboard');
+        // Ensure the user is authenticated
+        if (Auth::check()) {
+            // Retrieve the user type
+            $type = Auth::user()->type;
+            // Redirect based on user type
+            if ($type === 'user') {
+                return  redirect('dashboard');
+            } elseif ($type === 'admin') {
+                 return redirect('category');
+            } else {
+                return redirect()->back()->withErrors(['msg' => 'Unauthorized access.']);
             }
-            elseif ($type=='admin'){
-                return view('admin.index');
-
-            }
-            else{
-                return  redirect()->back();
-            }
+        } else {
+            // Redirect to login if not authenticated
+            return redirect()->route('login');
         }
-
     }
 }
